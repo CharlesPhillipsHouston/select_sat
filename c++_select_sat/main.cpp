@@ -54,10 +54,10 @@ void inputFile (FILE* input);   // read from file
 void printParameters (FILE* output);  // print to display, file
 
 // define functions
-char cardOne (char* name_card, FILE* spOutput, FILE* spOutput3889);
+char cardOne (char* name_card, FILE* spOutput, FILE* spOutputSats);
 // parse name card to try to get rid of char return
-char cardTwo (char* second_card, FILE* spOutput, FILE* spOutput3889);  // parse card #1
-char cardThree (char* third_card, FILE* spOutput, FILE* spOutput3889);  // parse card #2
+char cardTwo (char* second_card, FILE* spOutput, FILE* spOutputSats);  // parse card #1
+char cardThree (char* third_card, FILE* spOutput, FILE* spOutputSats);  // parse card #2
 
 void inputFile (FILE* spInput)  // read from input file, this works (duh)
 {
@@ -67,7 +67,7 @@ void inputFile (FILE* spInput)  // read from input file, this works (duh)
     // how do these statements know to go to sequential lines?
 } // end of inputFile
 
-char cardOne (char* name_card, FILE* spOutput3889)  // this reads name card!!
+char cardOne (char* name_card, FILE* spOutput, FILE* spOutputSats)  // this reads name card!!
 // scans to get name without CR - this darn version still has that CR
 {
     sscanf (name_card, "%12c", sat_name); // scan card #1, sat_name is a pointer
@@ -75,14 +75,15 @@ char cardOne (char* name_card, FILE* spOutput3889)  // this reads name card!!
     return 0;
 }
 
-char cardTwo (char* second_card, FILE* spOutput3889)  // this reads second card!! no need to print this
+char cardTwo (char* second_card, FILE* spOutput, FILE* spOutputSats)
+// this reads second card!! no need to print this
 {
     sscanf (second_card, "%d %6dU %6c %f", &card1, &satno1, &int_des, &epoch); // scan card #1
 
     return 0;
 }
 
-char cardThree (char* third_card, FILE* spOutput3889)  // this reads third card!!
+char cardThree (char* third_card, FILE* spOutput, FILE* spOutputSats)  // this reads third card!!
 {
     sscanf (third_card, "%s %6d  %f %f %f %f %f %f", &card2, &satno2, &inclination, &raan, &big_eccentricity, &arg_perigee, &mean_anomaly,
             &mean_motion); // scan card #2
@@ -90,7 +91,7 @@ char cardThree (char* third_card, FILE* spOutput3889)  // this reads third card!
     return 0;  // passed parameters out??
 }
 
-void printParameters (FILE* spOutput3889)   // move all print statements here???
+void printParameters (FILE* spOutput, FILE* spOutputSats)   // move all print statements here???
 {
     printf("name card: %s \n", name_card);
     printf("second card: %s \n", second_card);
@@ -99,18 +100,19 @@ void printParameters (FILE* spOutput3889)   // move all print statements here???
     // let's try printing from inside the print function
     if (satno1 == 41941)
         //  printf("do we get here??");
-    {   fprintf(spOutput3889, "%10s", name_card);  // nothing shows up in 3889.txt
-        fprintf(spOutput3889, "%s", second_card);
-        fprintf(spOutput3889, "%s", third_card);
+    {   fprintf(spOutputSats, "%10s", name_card);  // nothing shows up in sats.txt
+        fprintf(spOutputSats, "%s", second_card);
+        fprintf(spOutputSats, "%s", third_card);
+        fprintf(spOutput, "%s", third_card);
     }
     else
         
         if (satno1 == 90106)
             //  printf("do we get here??");
         {
-            fprintf(spOutput3889, "%10s", name_card);
-            fprintf(spOutput3889, "%s", second_card);
-            fprintf(spOutput3889, "%s", third_card);
+            fprintf(spOutputSats, "%10s", name_card);
+            fprintf(spOutputSats, "%s", second_card);
+            fprintf(spOutputSats, "%s", third_card);
         }
         else
         {}
@@ -123,19 +125,19 @@ int main(void)
     FILE* spInput; // input points to file to read from
     
     FILE* spOutput; // output points to file to write to
-    FILE* spOutput3889;  // a file just for TLEs for 3889
+    FILE* spOutputSats;  // a file just for TLEs for selected sats
     //    FILE* spOutput4418;  // a file just for TLEs for 4418
     
     // these next two lines are specific to the laptop - change for other computers.
     
     spInput = fopen("/Users/Admin/Documents/sequential/18_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
     
-    spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/3889_out.txt", "a");
+    spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder where the code is
     //   spOutput4418 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/4418_out.txt", "a");  // put output in folder where the code is
     
-    spOutput3889 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/3889.txt", "w");
-    // this line would build an output file for 3889 which would be empty :-(
+    spOutputSats = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats.txt", "a");
+    // this line would build an output file for sats which would be empty :-(
     
     //    spInput = fopen("~/tle_cards.txt", "r");  // read data from right place
     
@@ -147,16 +149,16 @@ int main(void)
         
         //  printf("\ncards input, for test print three cards\n\n");
         
-        cardOne(name_card, spOutput); // call function to scan name card
-        cardTwo (second_card, spOutput);  // call function to read second card, card #1
-        cardThree (third_card, spOutput);  // call function to read third card, card #2
-        printParameters (spOutput);  //just prints cards for now
+        cardOne(name_card, spOutput, spOutputSats); // call function to scan name card
+        cardTwo (second_card, spOutput , spOutputSats);  // call function to read second card, card #1
+        cardThree (third_card, spOutput, spOutputSats);  // call function to read third card, card #2
+        printParameters (spOutput, spOutputSats);  //just prints cards for now
         
     } // end while reading input file
     
     fclose(spOutput);  // close file we put output into
     fclose(spInput);  // close file we get input from
-    fclose(spOutput3889);
+    fclose(spOutputSats);
     
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
