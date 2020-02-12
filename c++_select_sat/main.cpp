@@ -1,6 +1,6 @@
 //  select sats
 //  this is the C code compiled with C++
-//  as of 9 feb 2020
+//  as of 12 feb 2020
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
 // branched from read 3 line TLE, just prints differently
@@ -93,17 +93,21 @@ char cardThree (char* third_card, FILE* spOutput, FILE* spOutputSats)  // this r
 
 void printParameters (FILE* spOutput, FILE* spOutputSats)   // move all print statements here???
 {
+    // the next three lines print everything - just to demo printing to two files
     printf("name card: %s \n", name_card);
     printf("second card: %s \n", second_card);
     printf("third card: %s \n", third_card);
     
     // let's try printing from inside the print function
+    fprintf(spOutput, "%s", name_card);
+    fprintf(spOutput, "%s", second_card);
+    fprintf(spOutput, "%s", third_card);
+    
     if (satno1 == 41941)
         //  printf("do we get here??");
     {   fprintf(spOutputSats, "%10s", name_card);  // nothing shows up in sats.txt
         fprintf(spOutputSats, "%s", second_card);
         fprintf(spOutputSats, "%s", third_card);
-        fprintf(spOutput, "%s", third_card);
     }
     else
         
@@ -130,8 +134,8 @@ int main(void)
     
     // these next two lines are specific to the laptop - change for other computers.
     
-    spInput = fopen("/Users/Admin/Documents/sequential/18_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
-    
+    spInput = fopen("/Users/Admin/Documents/sequential/31_jul_2019.txt", "r");  // read data from folder where the code is - now taken from
+    // this took a while - now the program outputs to two files!
     spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder where the code is
     //   spOutput4418 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/4418_out.txt", "a");  // put output in folder where the code is
