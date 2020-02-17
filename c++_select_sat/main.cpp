@@ -70,7 +70,7 @@ void inputFile (FILE* spInput)  // read from input file, this works (duh)
 char cardOne (char* name_card, FILE* spOutput, FILE* spOutputSats)  // this reads name card!!
 // scans to get name without CR - this darn version still has that CR
 {
-    sscanf (name_card, "%12c", sat_name); // scan card #1, sat_name is a pointer
+    sscanf (name_card,"%12c", sat_name); // scan card #1, sat_name is a pointer
     //  printf("\n");  // blank line
     return 0;
 }
@@ -103,7 +103,7 @@ void printParameters (FILE* spOutput, FILE* spOutputSats)   // move all print st
     fprintf(spOutput, "%s", second_card);
     fprintf(spOutput, "%s", third_card);
     
-    if (satno1 == 41941)
+    if (satno1 == 90093)
         //  printf("do we get here??");
     {   fprintf(spOutputSats, "%10s", name_card);  // nothing shows up in sats.txt
         fprintf(spOutputSats, "%s", second_card);
@@ -111,7 +111,7 @@ void printParameters (FILE* spOutput, FILE* spOutputSats)   // move all print st
     }
     else
         
-        if (satno1 == 90106)
+        if (satno1 == 90097)
             //  printf("do we get here??");
         {
             fprintf(spOutputSats, "%10s", name_card);
@@ -134,11 +134,11 @@ int main(void)
     
     // these next two lines are specific to the laptop - change for other computers.
     
-    spInput = fopen("/Users/Admin/Documents/sequential/31_jul_2019.txt", "r");  // read data from folder where the code is - now taken from
+    spInput = fopen("/Users/Admin/Documents/sequential/30_dec_2017.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
     spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
-    // put output in folder where the code is
-    //   spOutput4418 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/4418_out.txt", "a");  // put output in folder where the code is
+    // put output in folder "sorted"
+    //   spOutput4418 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/4418_out.txt", "a");  // put output in folder "sorted"
     
     spOutputSats = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats.txt", "a");
     // this line would build an output file for sats which would be empty :-(
