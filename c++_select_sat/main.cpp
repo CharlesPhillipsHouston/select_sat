@@ -1,10 +1,9 @@
 //  select sats
 //  this is the C code compiled with C++
-//  as of 18 feb 2020
+//  as of 29 feb 2020
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
-// branched from read 3 line TLE, just prints differently
-// just puts selected sats into an output file
+// runs on Mike's computer and on the Mac Mini
 
 #include <iostream>
 #include <stdio.h>
@@ -13,8 +12,8 @@
 #include <math.h>  // math functions
 
 // uncomment on of the two following depending on who's directory structure in use
-//#define CHARLES
-#define MIKE
+  #define CHARLES_Mini
+// #define MIKE
 
 // set up constants needed
 #define MU  398600.4418  // gravitational parameter
@@ -139,16 +138,16 @@ int main(void)
     
     // these next two lines are specific to the laptop - change for other computers.
 // based on #define line at top of file - open files using either:
-//      Charles directory structure (#define CHARLES)
+//      Charles directory structure (#define CHARLES_Mini)
 //      or Mike's directory structure (#define MIKE)
-#ifdef CHARLES
-    spInput = fopen("/Users/Admin/Documents/sequential/30_dec_2017.txt", "r");  // read data from folder where the code is - now taken from
+#ifdef CHARLES_Mini
+    spInput = fopen("/Users/Charles/Documents/sequential/8_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
-  //  spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
+  //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
-    spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/90107.txt", "a");  // put output in folder "sorted"
+    spOutput90107 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90107.txt", "a");  // put output in folder "sorted"
     
-    spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/90115.txt", "a");
+    spOutput90115 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90115.txt", "a");
 #endif
     
 #ifdef MIKE
