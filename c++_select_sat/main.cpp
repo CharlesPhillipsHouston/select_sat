@@ -12,6 +12,10 @@
 #include <stdlib.h> // atoi, atof not used yet
 #include <math.h>  // math functions
 
+// uncomment on of the two following depending on who's directory structure in use
+//#define CHARLES
+#define MIKE
+
 // set up constants needed
 #define MU  398600.4418  // gravitational parameter
 #define min_per_day  1440  // minutes per day
@@ -54,10 +58,10 @@ void inputFile (FILE* input);   // read from file
 void printParameters (FILE* output);  // print to display, file
 
 // define functions
-char cardOne (char* name_card, FILE* spOutput90107, FILE* spOutput90115);
+char cardOne (char* name_card);
 // parse name card to try to get rid of char return
-char cardTwo (char* second_card, FILE* spOutput90107, FILE* spOutput90115);  // parse card #1
-char cardThree (char* third_card, FILE* spOutput90107, FILE* spOutput90115);  // parse card #2
+char cardTwo (char* second_card);  // parse card #1
+char cardThree (char* third_card);  // parse card #2
 
 void inputFile (FILE* spInput)  // read from input file, this works (duh)
 {
@@ -67,7 +71,7 @@ void inputFile (FILE* spInput)  // read from input file, this works (duh)
     // how do these statements know to go to sequential lines?
 } // end of inputFile
 
-char cardOne (char* name_card, FILE* spOutput90115, FILE* spOutput90107)  // this reads name card!!
+char cardOne (char* name_card)  // this reads name card!!
 // scans to get name without CR - this darn version still has that CR
 {
     sscanf (name_card,"%12c", sat_name); // scan card #1, sat_name is a pointer
@@ -75,7 +79,7 @@ char cardOne (char* name_card, FILE* spOutput90115, FILE* spOutput90107)  // thi
     return 0;
 }
 
-char cardTwo (char* second_card, FILE* spOutput90115, FILE* spOutput90107)
+char cardTwo (char* second_card)
 // this reads second card!! no need to print this
 {
     sscanf (second_card, "%d %6dU %6c %f", &card1, &satno1, &int_des, &epoch); // scan card #1
@@ -83,7 +87,7 @@ char cardTwo (char* second_card, FILE* spOutput90115, FILE* spOutput90107)
     return 0;
 }
 
-char cardThree (char* third_card, FILE* spOutput90115, FILE* spOutput90107)  // this reads third card!!
+char cardThree (char* third_card)  // this reads third card!!
 {
     sscanf (third_card, "%s %6d  %f %f %f %f %f %f", &card2, &satno2, &inclination, &raan, &big_eccentricity, &arg_perigee, &mean_anomaly,
             &mean_motion); // scan card #2
@@ -91,35 +95,35 @@ char cardThree (char* third_card, FILE* spOutput90115, FILE* spOutput90107)  // 
     return 0;  // passed parameters out??
 }
 
-void printParameters (FILE* spOutput90115, FILE* spOutput90107)   // move all print statements here???
+void printParameters (FILE* spOutput)   // move all print statements here???
 {
     // the next three lines print everything - just to demo printing to two files
     printf("name card: %s \n", name_card);
     printf("second card: %s \n", second_card);
     printf("third card: %s \n", third_card);
     
-    // let's try printing from inside the print function
-  //  fprintf(spOutput, "%s", name_card);
-   // fprintf(spOutput, "%s", second_card);
-  //  fprintf(spOutput, "%s", third_card);
+     //let's try printing from inside the print function
+    fprintf(spOutput, "%s", name_card);
+    fprintf(spOutput, "%s", second_card);
+    fprintf(spOutput, "%s", third_card);
     
-    if (satno1 == 90107)
-        //  printf("do we get here??");
-    {   fprintf(spOutput90107, "%10s", name_card);  // nothing shows up in sats.txt
-        fprintf(spOutput90107, "%s", second_card);
-        fprintf(spOutput90107, "%s", third_card);
-    }
-    else
-        
-        if (satno1 == 90115)
-            //  printf("do we get here??");
-        {
-            fprintf(spOutput90115, "%10s", name_card);
-            fprintf(spOutput90115, "%s", second_card);
-            fprintf(spOutput90115, "%s", third_card);
-        }
-        else
-        {}
+//    if (satno1 == 90107)
+//        //  printf("do we get here??");
+//    {   fprintf(spOutput90107, "%10s", name_card);  // nothing shows up in sats.txt
+//        fprintf(spOutput90107, "%s", second_card);
+//        fprintf(spOutput90107, "%s", third_card);
+//    }
+//    else
+//
+//        if (satno1 == 90115)
+//            //  printf("do we get here??");
+//        {
+//            fprintf(spOutput90115, "%10s", name_card);
+//            fprintf(spOutput90115, "%s", second_card);
+//            fprintf(spOutput90115, "%s", third_card);
+//        }
+//        else
+//        {}
     
     // end of print function
 }
@@ -134,7 +138,10 @@ int main(void)
     //    FILE* spOutput4418;  // a file just for TLEs for 4418
     
     // these next two lines are specific to the laptop - change for other computers.
-    
+// based on #define line at top of file - open files using either:
+//      Charles directory structure (#define CHARLES)
+//      or Mike's directory structure (#define MIKE)
+#ifdef CHARLES
     spInput = fopen("/Users/Admin/Documents/sequential/30_dec_2017.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
   //  spOutput = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
@@ -142,6 +149,14 @@ int main(void)
     spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/90107.txt", "a");  // put output in folder "sorted"
     
     spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/sorted/90115.txt", "a");
+#endif
+    
+#ifdef MIKE
+    spInput = fopen("/Users/mike/Dropbox/Projects/Charles/tle_cards.txt", "r");  // read data from folder where the code is - now taken from
+    spOutput90107 = fopen("/Users/mike/Dropbox/Projects/Charles/90107.txt", "a");  // put output in folder "sorted"
+    spOutput90115 = fopen("/Users/mike/Dropbox/Projects/Charles/90115.txt", "a");
+#endif
+
     // this line would build an output file for sats which would be empty :-(
     
     //    spInput = fopen("~/tle_cards.txt", "r");  // read data from right place
@@ -154,11 +169,23 @@ int main(void)
         
         //  printf("\ncards input, for test print three cards\n\n");
         
-        cardOne(name_card, spOutput90115, spOutput90107); // call function to scan name card
-        cardTwo (second_card, spOutput90115, spOutput90107);  // call function to read second card, card #1
-        cardThree (third_card, spOutput90115, spOutput90107);  // call function to read third card, card #2
-        printParameters (spOutput90115, spOutput90107);  //just prints cards for now
-        
+        cardOne(name_card); // call function to scan name card
+        cardTwo (second_card);  // call function to read second card, card #1
+        cardThree (third_card);  // call function to read third card, card #2
+//
+        if (satno1 == 90107)
+        {
+            printParameters (spOutput90107);  //just prints cards for now
+        }
+        else if (satno1 == 90115)
+        {
+            printParameters (spOutput90115);  //just prints cards for now
+        }
+        else
+        {
+            printParameters(stdout); //didn't match either so just print to terminal
+        }
+
     } // end while reading input file
     
  //  fclose(spOutput);  // close file we put output into
