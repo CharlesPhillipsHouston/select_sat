@@ -153,7 +153,7 @@ int main(void)
 #endif
 
 #ifdef CHARLES_Mini
-    spInput = fopen("/Users/Charles/Documents/sequential/8_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
+    spInput = fopen("/Users/Charles/Documents/satellites_to_analyze/sequential_elements/8_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
   //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
