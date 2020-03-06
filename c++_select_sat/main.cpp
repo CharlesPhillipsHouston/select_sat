@@ -3,7 +3,7 @@
 //  as of 29 feb 2020
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
-// runs on Mike's computer and on the Mac Mini
+// runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
 
 #include <iostream>
 #include <stdio.h>
@@ -12,8 +12,8 @@
 #include <math.h>  // math functions
 
 // uncomment on of the two following depending on who's directory structure in use
-//  #define CHARLES_Mini
- #define CHARLES_MacBook
+  #define CHARLES_Mini
+//  #define CHARLES_MacBook
 // #define MIKE
 
 // set up constants needed
