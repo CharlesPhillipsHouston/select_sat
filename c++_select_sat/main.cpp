@@ -3,7 +3,7 @@
 //  as of 29 feb 2020
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
-// runs on Mike's computer and on the Mac Mini
+// runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
 
 #include <iostream>
 #include <stdio.h>
@@ -12,8 +12,8 @@
 #include <math.h>  // math functions
 
 // uncomment on of the two following depending on who's directory structure in use
-//  #define CHARLES_Mini
- #define CHARLES_MacBook
+  #define CHARLES_Mini
+//  #define CHARLES_MacBook
 // #define MIKE
 
 // set up constants needed
@@ -98,32 +98,14 @@ char cardThree (char* third_card)  // this reads third card!!
 void printParameters (FILE* spOutput)   // move all print statements here???
 {
     // the next three lines print everything - just to demo printing to two files
-    printf("name card: %s \n", name_card);
-    printf("second card: %s \n", second_card);
-    printf("third card: %s \n", third_card);
+   // printf("name card: %s \n", name_card);
+  //  printf("second card: %s \n", second_card);
+  //  printf("third card: %s \n", third_card);
     
      //let's try printing from inside the print function
     fprintf(spOutput, "%s", name_card);
     fprintf(spOutput, "%s", second_card);
     fprintf(spOutput, "%s", third_card);
-    
-//    if (satno1 == 90107)
-//        //  printf("do we get here??");
-//    {   fprintf(spOutput90107, "%10s", name_card);  // nothing shows up in sats.txt
-//        fprintf(spOutput90107, "%s", second_card);
-//        fprintf(spOutput90107, "%s", third_card);
-//    }
-//    else
-//
-//        if (satno1 == 90115)
-//            //  printf("do we get here??");
-//        {
-//            fprintf(spOutput90115, "%10s", name_card);
-//            fprintf(spOutput90115, "%s", second_card);
-//            fprintf(spOutput90115, "%s", third_card);
-//        }
-//        else
-//        {}
     
     // end of print function
 }
@@ -153,7 +135,7 @@ int main(void)
 #endif
 
 #ifdef CHARLES_Mini
-    spInput = fopen("/Users/Charles/Documents/sequential/8_dec_2019.txt", "r");  // read data from folder where the code is - now taken from
+    spInput = fopen("/Users/Charles/Documents/satellites_to_analyze/sequential_elementsets/91_2017_dec_15.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
   //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
