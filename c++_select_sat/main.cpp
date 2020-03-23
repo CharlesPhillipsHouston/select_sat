@@ -1,6 +1,5 @@
 //  select sats
 //  this is the C code compiled with C++
-//  as of 29 feb 2020
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
 // runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
@@ -12,8 +11,8 @@
 #include <math.h>  // math functions
 
 // uncomment on of the two following depending on who's directory structure in use
-  #define CHARLES_Mini
-//  #define CHARLES_MacBook
+//  #define CHARLES_Mini
+  #define CHARLES_MacBook
 // #define MIKE
 
 // set up constants needed
@@ -116,22 +115,30 @@ int main(void)
     
    // FILE* spOutput; // output points to file to write to
     FILE* spOutput90115;  // a file just for TLEs for selected sats
-    FILE* spOutput90107;  // a file just for TLEs for selected sa
+  //  FILE* spOutput90122; // for 90122
+    FILE* spOutput90107;  // a file just for TLEs for 90107
+    FILE* spOutput90103;  // for 90103
+    FILE* spOutput90097; // for 90097
     //    FILE* spOutput4418;  // a file just for TLEs for 4418
     
-    // these next two lines are specific to the laptop - change for other computers.
-// based on #define line at top of file - open files using either:
-//      Charles directory structure (#define CHARLES_Mini)
-//      or Mike's directory structure (#define MIKE)
+    // these next lines are specific to the laptop - change for other computers.
+    // based on #define line at top of file - open files using either:
+    // MacBook Pro directory (#define MacBook_Pro
+    // Mac Mine directory structure (#define CHARLES_Mini)
+    // Mike's directory structure (#define MIKE)
     
 #ifdef CHARLES_MacBook
-    spInput = fopen("/Users/Admin/Documents/sequential_TLEs/4_mar_2020.txt", "r");  // read data from folder where the code is - now taken from
+    spInput = fopen("/Users/Admin/Documents/sequential_TLEs/input_tles.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
     //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
     spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/90107.txt", "a");  // put output in folder "sorted"
     
     spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/90115.txt", "a");
+  //  spOutput90122 = fopen("/Users/Admin/Documents/satellites_analyszed/90122.txt", "a") ;
+    spOutput90103 = fopen("/Users/Admin/Documents/satellites_analyzed/90103.txt", "a");
+    spOutput90097 = fopen("/Users/Admin/Documents/satellites_analyzed/90097.txt","a");
+    
 #endif
 
 #ifdef CHARLES_Mini
@@ -168,11 +175,23 @@ int main(void)
 //
         if (satno1 == 90107)
         {
-            printParameters (spOutput90107);  //just prints cards for now
+            printParameters (spOutput90107);  //creates file with just 90107
         }
         else if (satno1 == 90115)
         {
-            printParameters (spOutput90115);  //just prints cards for now
+            printParameters (spOutput90115);  //creates file
+        }
+/*        else if (satno1 == 90122)
+        {
+            printParameters(spOutput90122);
+        }  */
+        else if (satno1 == 90103)
+        {
+            printParameters (spOutput90103);  //creates file
+        }
+        else if (satno1 == 90097)
+        {
+            printParameters(spOutput90097);
         }
         else
         {
@@ -185,6 +204,9 @@ int main(void)
     fclose(spInput);  // close file we get input from
     fclose(spOutput90115);
     fclose(spOutput90107);
+    fclose(spOutput90103);
+   // fclose(spOutput90122);
+    fclose(spOutput90097);
     
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
