@@ -11,8 +11,8 @@
 #include <math.h>  // math functions
 
 // uncomment on of the two following depending on who's directory structure in use
-//  #define CHARLES_Mini
-  #define CHARLES_MacBook
+  #define CHARLES_Mini
+ // #define CHARLES_MacBook
 // #define MIKE
 
 // set up constants needed
@@ -115,7 +115,7 @@ int main(void)
     
    // FILE* spOutput; // output points to file to write to
     FILE* spOutput90115;  // a file just for TLEs for selected sats
-  //  FILE* spOutput90122; // for 90122
+    FILE* spOutput90122; // for 90122
     FILE* spOutput90107;  // a file just for TLEs for 90107
     FILE* spOutput90103;  // for 90103
     FILE* spOutput90097; // for 90097
@@ -128,40 +128,44 @@ int main(void)
     // Mike's directory structure (#define MIKE)
     
 #ifdef CHARLES_MacBook
-    spInput = fopen("/Users/Admin/Documents/sequential_TLEs/input_tles.txt", "r");  // read data from folder where the code is - now taken from
+    spInput = fopen("/Users/Admin/Documents/sequential_TLEs/sorted/input_tles.txt", "r");  // read data from folder where the code is - now taken from
     // this took a while - now the program outputs to two files!
     //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
-    spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/90107.txt", "a");  // put output in folder "sorted"
     
-    spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/90115.txt", "a");
-  //  spOutput90122 = fopen("/Users/Admin/Documents/satellites_analyszed/90122.txt", "a") ;
-    spOutput90103 = fopen("/Users/Admin/Documents/satellites_analyzed/90103.txt", "a");
     spOutput90097 = fopen("/Users/Admin/Documents/satellites_analyzed/90097.txt","a");
+    spOutput90103 = fopen("/Users/Admin/Documents/satellites_analyzed/90103.txt", "a");
+    spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/90107.txt", "a");  // put output in folder "sorted"
+    spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/90115.txt", "a");
+    spOutput90122 = fopen("/Users/Admin/Documents/satellites_analyzed/90122.txt", "a") ;
+    
+   
     
 #endif
 
 #ifdef CHARLES_Mini
-    spInput = fopen("/Users/Charles/Documents/satellites_to_analyze/sequential_elementsets/91_2017_dec_15.txt", "r");  // read data from folder where the code is - now taken from
-    // this took a while - now the program outputs to two files!
+    spInput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/input_tles.txt", "r");  // read data from folder where the code is - now taken from
   //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
-    spOutput90107 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90107.txt", "a");  // put output in folder "sorted"
-    
+    spOutput90097 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90097.txt", "a");
+    spOutput90103 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90103.txt", "a");
+    spOutput90107 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90107.txt", "a");
     spOutput90115 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90115.txt", "a");
+    spOutput90122 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90122.txt", "a");
+    
 #endif
     
 #ifdef MIKE
     spInput = fopen("/Users/mike/Dropbox/Projects/Charles/tle_cards.txt", "r");  // read data from folder where the code is - now taken from
-    spOutput90107 = fopen("/Users/mike/Dropbox/Projects/Charles/90107.txt", "a");  // put output in folder "sorted"
+    
+    spOutput90097 = fopen("/Users/mike/Dropbox/Projects/Charles/90097.txt","a");
+    spOutput90103 = fopen("/Users/mike/Dropbox/Projects/Charles/90103.txt", "a");
+    spOutput90107 = fopen("/Users/mike/Dropbox/Projects/Charles/90107.txt", "a");
+    
     spOutput90115 = fopen("/Users/mike/Dropbox/Projects/Charles/90115.txt", "a");
+    spOutput90122 = fopen("/Users/mike/Dropbox/Projects/Charles/90122.txt", "a") ;
 #endif
 
-    // this line would build an output file for sats which would be empty :-(
-    
-    //    spInput = fopen("~/tle_cards.txt", "r");  // read data from right place
-    
-    //    spOutput = fopen("~/tle_output.txt", "w");  // put satellite in right place
     while (feof(spInput) == 0)
     {
         
@@ -181,10 +185,10 @@ int main(void)
         {
             printParameters (spOutput90115);  //creates file
         }
-/*        else if (satno1 == 90122)
+        else if (satno1 == 90122)
         {
             printParameters(spOutput90122);
-        }  */
+        }  
         else if (satno1 == 90103)
         {
             printParameters (spOutput90103);  //creates file
@@ -202,11 +206,14 @@ int main(void)
     
  //  fclose(spOutput);  // close file we put output into
     fclose(spInput);  // close file we get input from
-    fclose(spOutput90115);
-    fclose(spOutput90107);
-    fclose(spOutput90103);
-   // fclose(spOutput90122);
+    
     fclose(spOutput90097);
+    fclose(spOutput90103);
+    fclose(spOutput90107);
+    fclose(spOutput90115);
+   
+    fclose(spOutput90122);
+ 
     
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
