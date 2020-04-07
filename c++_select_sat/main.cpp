@@ -114,11 +114,12 @@ int main(void)
     FILE* spInput; // input points to file to read from
     
    // FILE* spOutput; // output points to file to write to
-    FILE* spOutput90115;  // a file just for TLEs for selected sats
-    FILE* spOutput90122; // for 90122
-    FILE* spOutput90107;  // a file just for TLEs for 90107
-    FILE* spOutput90103;  // for 90103
-    FILE* spOutput90097; // for 90097
+    FILE* spOutput38758;  // for 38758
+    FILE* spOutput38770; // for 38770
+    FILE* spOutput38773;  // for 38778
+    FILE* spOutput40964;  // for 40964
+    FILE* spOutput40978; // for 40978
+    FILE* spOutput40981; // duh
     //    FILE* spOutput4418;  // a file just for TLEs for 4418
     
     // these next lines are specific to the laptop - change for other computers.
@@ -133,13 +134,12 @@ int main(void)
     //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
     
-    spOutput90097 = fopen("/Users/Admin/Documents/satellites_analyzed/90097.txt","a");
-    spOutput90103 = fopen("/Users/Admin/Documents/satellites_analyzed/90103.txt", "a");
-    spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/90107.txt", "a");  // put output in folder "sorted"
-    spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/90115.txt", "a");
-    spOutput90122 = fopen("/Users/Admin/Documents/satellites_analyzed/90122.txt", "a") ;
-    
-   
+    spOutput38758 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38758.txt","a");
+    spOutput38770 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38770.txt", "a");
+    spOutput38773 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38773.txt", "a");
+    spOutput40964 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40964.txt", "a");
+    spOutput40978 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40978.txt", "a") ;
+    spOutput40981 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40981.txt", "a") ;
     
 #endif
 
@@ -147,23 +147,24 @@ int main(void)
     spInput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/input_tles.txt", "r");  // read data from folder where the code is - now taken from
   //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
-    spOutput90097 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90097.txt", "a");
-    spOutput90103 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90103.txt", "a");
-    spOutput90107 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90107.txt", "a");
-    spOutput90115 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90115.txt", "a");
-    spOutput90122 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90122.txt", "a");
+     spOutput38758 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38758.txt","a");
+      spOutput38770 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38770.txt", "a");
+      spOutput38773 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38773.txt", "a");
+      spOutput40964 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40964.txt", "a");
+      spOutput40978 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40978.txt", "a") ;
+      spOutput40981 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40981.txt", "a") ;
     
 #endif
     
 #ifdef MIKE
     spInput = fopen("/Users/mike/Dropbox/Projects/Charles/tle_cards.txt", "r");  // read data from folder where the code is - now taken from
     
-    spOutput90097 = fopen("/Users/mike/Dropbox/Projects/Charles/90097.txt","a");
-    spOutput90103 = fopen("/Users/mike/Dropbox/Projects/Charles/90103.txt", "a");
-    spOutput90107 = fopen("/Users/mike/Dropbox/Projects/Charles/90107.txt", "a");
-    
-    spOutput90115 = fopen("/Users/mike/Dropbox/Projects/Charles/90115.txt", "a");
-    spOutput90122 = fopen("/Users/mike/Dropbox/Projects/Charles/90122.txt", "a") ;
+     spOutput38758 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38758.txt","a");
+      spOutput38770 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38770.txt", "a");
+      spOutput38773 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38773.txt", "a");
+      spOutput40964 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40964.txt", "a");
+      spOutput40978 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40978.txt", "a") ;
+      spOutput40981 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40981.txt", "a") ;
 #endif
 
     while (feof(spInput) == 0)
@@ -177,25 +178,29 @@ int main(void)
         cardTwo (second_card);  // call function to read second card, card #1
         cardThree (third_card);  // call function to read third card, card #2
 //
-        if (satno1 == 90107)
+        if (satno1 == 38758)
         {
-            printParameters (spOutput90107);  //creates file with just 90107
+            printParameters (spOutput38758);  //creates file with just 90107
         }
-        else if (satno1 == 90115)
+        else if (satno1 == 38770)
         {
-            printParameters (spOutput90115);  //creates file
+            printParameters (spOutput38770);  //creates file
         }
-        else if (satno1 == 90122)
+        else if (satno1 == 38773)
         {
-            printParameters(spOutput90122);
-        }  
-        else if (satno1 == 90103)
-        {
-            printParameters (spOutput90103);  //creates file
+            printParameters(spOutput38773);
         }
-        else if (satno1 == 90097)
+        else if (satno1 == 40964)
         {
-            printParameters(spOutput90097);
+            printParameters (spOutput40964);  //creates file
+        }
+        else if (satno1 == 40978)
+        {
+            printParameters(spOutput40978);
+        }
+        else if (satno1 == 40981)
+        {
+                   printParameters(spOutput40981);
         }
         else
         {
@@ -207,13 +212,13 @@ int main(void)
  //  fclose(spOutput);  // close file we put output into
     fclose(spInput);  // close file we get input from
     
-    fclose(spOutput90097);
-    fclose(spOutput90103);
-    fclose(spOutput90107);
-    fclose(spOutput90115);
-   
-    fclose(spOutput90122);
- 
+    fclose(spOutput38758);
+    fclose(spOutput38770);
+    fclose(spOutput38773);
+    fclose(spOutput40964);
+    fclose(spOutput40978);
+    fclose(spOutput40981);
+
     
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
