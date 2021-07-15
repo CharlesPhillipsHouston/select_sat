@@ -106,7 +106,7 @@ void printParameters (FILE* spOutput42491)   // move all print statements here??
      //let's try printing from inside the print function
     fprintf(spOutput42491, "%s", name_card);
     fprintf(spOutput42491, "%s", second_card);
-    fprintf(spOutput42491, "%s", third_card);
+    fprintf(spOutput42491, "%s\n\n", third_card);
     
 } // end of print function
 
@@ -115,7 +115,7 @@ int main(void)
     FILE* spInputTLE; // input points to file to read from, file consists of TLEs
     
    // FILE* spOutput; // output points to file to write to
-    FILE* spOutput42491;  // for 42491
+    FILE* spOutput11720;  // for 11720
     /*
      
     FILE* spOutput38770; // for 38770
@@ -128,7 +128,7 @@ int main(void)
     // these next lines are specific to the laptop - change for other computers.
     // based on #define line at top of file - open files using either:
     // MacBook Pro directory (#define MacBook_Pro)
-    // Mac Mine directory structure (#define CHARLES_Mini)
+    // Mac Mini directory structure (#define CHARLES_Mini)
     // Mike's directory structure (#define MIKE)
     
 #ifdef CHARLES_MacBook
@@ -148,14 +148,15 @@ int main(void)
     */
     
 #endif
-
 #ifdef CHARLES_Mini
-    spInputTLE = fopen("/Users/Charles/Documents/satellites_to_analyze/alltle.txt", "r");
+    spInputTLE = fopen("/Users/Charles/Documents/satellites_to_analyze/sequential_elementsets/2021/all_tles.txt", "r");
     // read data from folder for satellites to analyze
   //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
     // put output in folder "sorted"
-     spOutput42491 = fopen("/Users/Charles/Documents/satellites_analyzed/42491.txt","a");
+     spOutput11720 = fopen("/Users/Charles/Documents/satellites_to_analyze/low_perigee/11720/11720_output.txt","a");
     /*
+     /Users/Charles/Documents/
+
       spOutput38770 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38770.txt", "a");
       spOutput38773 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/38773.txt", "a");
       spOutput40964 = fopen("/Users/Admin/Documents/satellites_analyzed/noss/40964.txt", "a");
@@ -187,9 +188,9 @@ int main(void)
         cardTwo (second_card);  // call function to read second card, card #1
         cardThree (third_card);  // call function to read third card, card #2
 //
-        if (satno1 == 42491)
+        if (satno1 == 11720)
         {
-            printParameters (spOutput42491);  //creates file with just 42491
+            printParameters (spOutput11720);  //creates file with just 11720
         }
         /*
         else if (satno1 == 38770)
@@ -224,7 +225,7 @@ int main(void)
  //  fclose(spOutput);  // close file we put output into
     fclose(spInputTLE);  // close file we get input from
     
-    fclose(spOutput42491);
+    fclose(spOutput11720);
     
     /*
     fclose(spOutput38770);
