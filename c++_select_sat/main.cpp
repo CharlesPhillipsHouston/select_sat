@@ -127,7 +127,7 @@ int main(void)
     
     // these next lines are specific to the laptop - change for other computers.
     // based on #define line at top of file - open files using either:
-    // MacBook Pro directory (#define MacBook_Pro)
+    // MacBook Pro directory (#define MacBook_Pro2015)
     // Mac Mini directory structure (#define CHARLES_Mini)
     // Mike's directory structure (#define MIKE)
     
@@ -194,6 +194,7 @@ int main(void)
         }
         /*
         else if (satno1 == 38770)
+         // 38770 or other satellite numbers???
         {
             printParameters (spOutput38770);  //creates file
         }
