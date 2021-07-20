@@ -10,11 +10,6 @@
 #include <stdlib.h> // atoi, atof not used yet
 #include <math.h>  // math functions
 
-// uncomment on of the two following depending on who's directory structure in use
-  #define CHARLES_Mini
- // #define CHARLES_MacBook
-// #define MIKE
-
 // set up constants needed
 #define MU  398600.4418  // gravitational parameter
 #define min_per_day  1440  // minutes per day
@@ -111,65 +106,60 @@ void printParameters (FILE* spOutput)   // move all print statements here???
 int main(void)
 {
     
-    FILE* spInput; // input points to file to read from
-    
-   // FILE* spOutput; // output points to file to write to
-    FILE* spOutput90115;  // a file just for TLEs for selected sats
-    FILE* spOutput90122; // for 90122
-    FILE* spOutput90107;  // a file just for TLEs for 90107
-    FILE* spOutput90103;  // for 90103
-    FILE* spOutput90097; // for 90097
-    //    FILE* spOutput4418;  // a file just for TLEs for 4418
-    
-    // these next lines are specific to the laptop - change for other computers.
-    // based on #define line at top of file - open files using either:
-    // MacBook Pro directory (#define MacBook_Pro
-    // Mac Mine directory structure (#define CHARLES_Mini)
-    // Mike's directory structure (#define MIKE)
-    
-#ifdef CHARLES_MacBook
-    spInput = fopen("/Users/Admin/Documents/sequential_TLEs/sorted/input_tles.txt", "r");  // read data from folder where the code is - now taken from
-    // this took a while - now the program outputs to two files!
-    //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
-    // put output in folder "sorted"
-    
-    spOutput90097 = fopen("/Users/Admin/Documents/satellites_analyzed/90097.txt","a");
-    spOutput90103 = fopen("/Users/Admin/Documents/satellites_analyzed/90103.txt", "a");
-    spOutput90107 = fopen("/Users/Admin/Documents/satellites_analyzed/90107.txt", "a");  // put output in folder "sorted"
-    spOutput90115 = fopen("/Users/Admin/Documents/satellites_analyzed/90115.txt", "a");
-    spOutput90122 = fopen("/Users/Admin/Documents/satellites_analyzed/90122.txt", "a") ;
-    
-   
-    
-#endif
+    FILE* spInputTLE;  // a file of all the TLEs
+       
+    FILE* spOutput = nullptr; // output points to file to write calculate results to
 
-#ifdef CHARLES_Mini
-    spInput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/input_tles.txt", "r");  // read data from folder where the code is - now taken from
-  //  spOutput = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/sats_out.txt", "a");
-    // put output in folder "sorted"
-    spOutput90097 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90097.txt", "a");
-    spOutput90103 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90103.txt", "a");
-    spOutput90107 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90107.txt", "a");
-    spOutput90115 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90115.txt", "a");
-    spOutput90122 = fopen("/Users/Charles/Documents/satellites_analyzed/sorted/90122.txt", "a");
-    
-#endif
-    
-#ifdef MIKE
-    spInput = fopen("/Users/mike/Dropbox/Projects/Charles/tle_cards.txt", "r");  // read data from folder where the code is - now taken from
-    
-    spOutput90097 = fopen("/Users/mike/Dropbox/Projects/Charles/90097.txt","a");
-    spOutput90103 = fopen("/Users/mike/Dropbox/Projects/Charles/90103.txt", "a");
-    spOutput90107 = fopen("/Users/mike/Dropbox/Projects/Charles/90107.txt", "a");
-    
-    spOutput90115 = fopen("/Users/mike/Dropbox/Projects/Charles/90115.txt", "a");
-    spOutput90122 = fopen("/Users/mike/Dropbox/Projects/Charles/90122.txt", "a") ;
-#endif
+    printf("\nWhich Computer??\n");
+        
+        char answer = 'd';  // define answer and give it a default value of d
+        // sort by what?
 
-    while (feof(spInput) == 0)
+        while (answer != 'q')
+        {
+            printf(" a) MacBook Pro\n");
+            printf(" b) Mac Mini\n");
+            printf(" c) Mike's System\n");
+            printf(" q) Never Mind, Quit\n\n");
+
+        scanf(" %c", &answer);
+        
+        switch (answer)
+        {
+            case 'a':
+
+        spInputTLE = fopen("/Users/charlesphillips/Desktop/test/input_tle.txt", "r");
+        spOutput = fopen("/Users/charlesphillips/Desktop/test/selected_satellite.txt", "w");
+                       
+                break;
+            case 'b':
+
+        spInputTLE = fopen("/Users/Charles/Desktop/test/input_tle.txt", "r");
+        spOutput = fopen("/Users/Charles/Desktop/test/selected_satellite.txt", "w");
+                        
+                break;
+                
+                case 'c':
+                        
+        spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
+        spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/selected_satellite.txt", "w");
+                             
+                break;
+                
+            case 'q':  // initialize spInputTLE and spOutput to stop compiler nagging
+                spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
+                spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/no_output.txt", "w");
+                break;
+            default:// initialize spInputTLE and spOutput to stop compiler nagging
+                spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
+                spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/no_output.txt", "w");
+                break;
+        }  // end of switch
+
+    while (feof(spInputTLE) == 0)
     {
         
-        inputFile (spInput);  // go to function inputFile and read lines
+        inputFile (spInputTLE);  // go to function inputFile and read lines
         
         //  printf("\ncards input, for test print three cards\n\n");
         
@@ -179,9 +169,9 @@ int main(void)
 //
         if (satno1 == 90107)
         {
-            printParameters (spOutput90107);  //creates file with just 90107
+            printParameters (spOutput);  //creates file with just 90107
         }
-        else if (satno1 == 90115)
+   /*     else if (satno1 == 90115)
         {
             printParameters (spOutput90115);  //creates file
         }
@@ -198,6 +188,7 @@ int main(void)
             printParameters(spOutput90097);
         }
         else
+    */
         {
             printParameters(stdout); //didn't match either so just print to terminal
         }
@@ -205,17 +196,11 @@ int main(void)
     } // end while reading input file
     
  //  fclose(spOutput);  // close file we put output into
-    fclose(spInput);  // close file we get input from
+    fclose(spInputTLE);  // close file we get input from
     
-    fclose(spOutput90097);
-    fclose(spOutput90103);
-    fclose(spOutput90107);
-    fclose(spOutput90115);
-   
-    fclose(spOutput90122);
- 
-    
+    fclose(spOutput);
+        
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
 
-
+}
