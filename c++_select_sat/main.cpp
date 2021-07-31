@@ -2,6 +2,7 @@
 //  this is the C code compiled with C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
+// generally to just collect a file for a particular satellite though parameters are read
 // runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
 
 #include <iostream>
@@ -128,14 +129,14 @@ int main(void)
         {
             case 'a':
 
-        spInputTLE = fopen("/Users/charlesphillips/Desktop/test/input_tle.txt", "r");
-        spOutput = fopen("/Users/charlesphillips/Desktop/test/selected_satellite.txt", "w");
+        spInputTLE = fopen("/Users/charlesphillips/Desktop/analyses/input_tle.txt", "r");
+        spOutput = fopen("/Users/charlesphillips/Desktop/analyses/selected_satellite.txt", "w");
                        
                 break;
             case 'b':
 
-        spInputTLE = fopen("/Users/Charles/Desktop/test/input_tle.txt", "r");
-        spOutput = fopen("/Users/Charles/Desktop/test/selected_satellite.txt", "w");
+        spInputTLE = fopen("/Users/Charles/Desktop/analyses/input_tle.txt", "r");
+        spOutput = fopen("/Users/Charles/Desktop/analyses/selected_satellite.txt", "w");
                         
                 break;
                 
@@ -167,9 +168,9 @@ int main(void)
         cardTwo (second_card);  // call function to read second card, card #1
         cardThree (third_card);  // call function to read third card, card #2
 //
-        if (satno1 == 90107)
+        if (satno1 == 29249)
         {
-            printParameters (spOutput);  //creates file with just 90107
+            printParameters (spOutput);  //creates file with just 29249
         }
    /*     else if (satno1 == 90115)
         {
