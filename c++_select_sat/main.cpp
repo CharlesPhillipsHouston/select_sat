@@ -1,4 +1,4 @@
-//  select sats  21 jul 2021
+//  select sats 7 aug 2021
 //  this is the C code compiled with C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
@@ -111,7 +111,7 @@ int main(void)
        
     FILE* spOutput = nullptr; // output points to file to write calculate results to
 
-    printf("\nWhich Computer??\n");
+    printf("Which Computer??\n");
         
         char answer = 'd';  // define answer and give it a default value of d
         // sort by what?
