@@ -101,7 +101,6 @@ void printParameters (FILE* spOutput)   // move all print statements here???
     fprintf(spOutput, "%s", name_card);
     fprintf(spOutput, "%s", second_card);
     fprintf(spOutput, "%s", third_card);
-    
     // end of print function
 }
 int main(void)
@@ -189,11 +188,12 @@ int main(void)
             printParameters(spOutput90097);
         }
         else
-    */
+    
         {
-            printParameters(stdout); //didn't match either so just print to terminal
+            printParameters(stdout); //debug just print to terminal
+            printf("\n");  // if you output to screen add a CR
         }
-
+     */
     } // end while reading input file
     
  //  fclose(spOutput);  // close file we put output into
