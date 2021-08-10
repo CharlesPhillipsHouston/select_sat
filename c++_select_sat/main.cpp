@@ -1,4 +1,4 @@
-//  select sats 7 aug 2021
+//  select sats 10 aug 2021
 //  this is the C code compiled with C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
@@ -178,7 +178,7 @@ int main(void)
         else if (satno1 == 90122)
         {
             printParameters(spOutput90122);
-        }  
+        }
         else if (satno1 == 90103)
         {
             printParameters (spOutput90103);  //creates file
