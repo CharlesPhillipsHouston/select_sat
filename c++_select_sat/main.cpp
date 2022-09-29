@@ -72,145 +72,35 @@ float intermediate_three = 0.0; // intermediate two, cube root
 float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three squared
 // set variables as float - intermediate_one, _two, _three
 // they were defined as long integers!
+ 
 */  void inputFile (FILE* input);   // read from file
 
-void printParameters (FILE* output);  // print to display, file
-
-/* define functions  don't use any more
-char cardOne (char* name_card);
-// parse name card to try to get rid of char return
-char cardTwo (char* second_card);  // parse card #1
-char cardThree (char* third_card);  // parse card #2
-*/
-
-/*  do in main now
- void inputFile (FILE* spInput)  // read from input file, this works (duh)
-{
-    fgets(name_card, LINE_LEN, spInput);  // get first line of TLE
-    fgets(second_card, LINE_LEN, spInput);  // get first line of TLE, outside of the while
-    fgets(third_card, LINE_LEN, spInput);  // outside of the while loop
-    // how do these statements know to go to sequential lines?
-} // end of inputFile
-*/
-
-/* take out reading three cards
- char cardOne (char* name_card)  // this reads name card!!
-// scans to get name without CR - this darn version still has that CR
-{
-    sscanf (name_card,"%12c", sat_name); // scan card #1, sat_name is a pointer
-    //  printf("\n");  // blank line
-    return 0;
-}
-
-char cardTwo (char* second_card)
-// this reads second card!! no need to print this
-{
-    sscanf (second_card, "%d %6dU %6c %f", &card1, &satno1, &int_des, &epoch); // scan card #1
-
-    return 0;
-}
-
-char cardThree (char* third_card)  // this reads third card!!
-{
-    sscanf (third_card, "%s %6d  %f %f %f %f %f %f", &card2, &satno2, &inclination, &raan, &big_eccentricity, &arg_perigee, &mean_anomaly,
-            &mean_motion); // scan card #2
-  
-    return 0;  // passed parameters out??
-}
-*/
-
-void printParameters (FILE* spOutput)   // move all print statements here???
-{
-    // the next three lines print everything - just to demo printing to two files
-   // printf("name card: %s \n", name_card);
-  //  printf("second card: %s \n", second_card);
-  //  printf("third card: %s \n", third_card);
-    
-     //let's try printing from inside the print function
-  //  fprintf(spOutput, "%s", name_card);
-  //  fprintf(spOutput, "%s", second_card);
- //   fprintf(spOutput, "%s", third_card);
-    // end of print function
-}
 int main(void)
 {
-    string homeDir = getenv("Home"); // converting to dormer getenv
-    string ifname = homeDir + "/Desktop/common_files/input_tle.txt";
+  // string homeDir = getenv("Home"); // converting to dormer getenv
+    string ifname = "Users/charlesphillips/Desktop/common_files/input_tle.txt";
     // still expects input_tle
-    string ofname = homeDir + "/Desktop/common_files/output_select.txt";
+    // Users/charlesphillips/Desktop/common_files/input_tle.txt
+    string ofname = "Users/charlesphillips/Desktop/common_files/output_select.txt";
     
     ifstream fin(ifname);
-    ofstream fout(ofname);
+   ofstream fout(ofname);
     
+    fout << "just after creating streams" << endl;
     cout << "just after creating streams" << endl;
+ 
+    int i = 1;
     
-    // FILE* spInputTLE;  // a file of all the TLEs
- //   FILE* spOutput = nullptr; // output points to file to write calculate results to
-
- /*   printf("Which Computer??\n");
-        
-        char answer = 'd';  // define answer and give it a default value of d
-        // sort by what?
-
-        while (answer != 'q')
-        {
-            printf(" a) MacBook Pro\n");
-            printf(" b) Mac Mini\n");
-            printf(" c) Mike's System\n");
-            printf(" q) Never Mind, Quit\n\n");
-
-        scanf(" %c", &answer);
-        
-        switch (answer)
-        {
-            case 'a':
-
-        spInputTLE = fopen("/Users/charlesphillips/Desktop/analyses/input_tle.txt", "r");
-        spOutput = fopen("/Users/charlesphillips/Desktop/analyses/selected_satellite.txt", "w");
-                       
-                break;
-            case 'b':
-
-        spInputTLE = fopen("/Users/Charles/Desktop/analyses/input_tle.txt", "r");
-        spOutput = fopen("/Users/Charles/Desktop/analyses/selected_satellite.txt", "w");
-                        
-                break;
-                
-                case 'c':
-                        
-        spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
-        spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/selected_satellite.txt", "w");
-                             
-                break;
-                
-            case 'q':  // initialize spInputTLE and spOutput to stop compiler nagging
-                spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
-                spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/no_output.txt", "w");
-                break;
-            default:// initialize spInputTLE and spOutput to stop compiler nagging
-                spInputTLE = fopen("/Users/mike/Dropbox/Projects/Charles/input_tle.txt", "r");
-                spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/no_output.txt", "w");
-                break;
-        }  // end of switch
-  
-  */
-
-    while (!fin.eof())  // changed this
+    while (i < 9)  // changed this
     {
-    //    getline(fin, line);  // get a line from fin
+        getline(fin, line);  // get a line from fin
 // need to know which line we are scanning
-  //      string name_card = line.substr(10); // try to read name card
+  //  string name_card = line.substr(10); // try to read name card
         
-        fout << "name" << name_card << endl;
-        
-   //     inputFile (spInputTLE);  // go to function inputFile and read lines
-        
-        //  printf("\ncards input, for test print three cards\n\n");
-        
-     //   cardOne(name_card); // call function to scan name card
-    //    cardTwo (second_card);  // call function to read second card, card #1
-    //    cardThree (third_card);  // call function to read third card, card #2
-/*
+        cout << "name " << name_card << endl;
+        fout << "name " << name_card << endl;
+        i++;
+    /*
         if (satno1 == 29249)
         {
             printParameters (spOutput);  //creates file with just 29249
@@ -244,4 +134,4 @@ int main(void)
     fout.close();
         
     return 0;
-}  // end main, sends to functions to read cards, parse parameters (duh)
+}  // end main, 
