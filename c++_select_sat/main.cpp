@@ -1,4 +1,4 @@
-//  select sats 10 aug 2021
+//  select sats 26 sep 2022
 //  this is the C code compiled with C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
@@ -7,9 +7,13 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <string.h> // strtok, strcpy stuff not even used yet
+#include <string> // c++ strings
+#include <cstring>
+#include <fstream>
 #include <stdlib.h> // atoi, atof not used yet
 #include <math.h>  // math functions
+
+using namespace::std; // added c++ namespace
 
 // set up constants needed
 #define MU  398600.4418  // gravitational parameter
@@ -18,13 +22,33 @@
 #define PI        3.141592653589
 #define Two_Pi  6.283185307  // 2 times Pi (for use in finding semi-major axis)
 
-// define strings, each card starts as a string
+string line, *p;
+
+string name_card = "a";  // now using c++ strings
+string second_card = "b";
+string third_card = "c";
+
+/* take out c strings, put in c++
+ define strings, each card starts as a string
 char name_card[80] = {0};  // imported first card of three, name (not needed)
 char second_card[80] = {0}; // imported second line, card 1
 char third_card[80] = {0}; // imported third line, card 2
 char LINE_LEN = 80;  // define line length as 80 char  is this a good definition? =80
+*/
 
-// define variables, no structure here!!
+// cards all are strings
+
+// parameters start as strings and are converted later
+string satno1 = "d"; // this is satno from card 2
+string int_des = "e"; // will always be a string
+string epoch = "f"; // may convert to time
+string inclination = "f";
+string mean_anomaly = "h";
+string big_eccentricity = "i";
+
+
+/* define variables, no structure here!!
+ used to have variables defined here, now call all of them strings and convert
 int card1;
 int satno1;
 char sat_name[12] = "\0\0\0\0\0\0\0\0\0\0\0"; // name assigned, fill with \0
@@ -48,25 +72,29 @@ float intermediate_three = 0.0; // intermediate two, cube root
 float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three squared
 // set variables as float - intermediate_one, _two, _three
 // they were defined as long integers!
-void inputFile (FILE* input);   // read from file
+*/  void inputFile (FILE* input);   // read from file
 
 void printParameters (FILE* output);  // print to display, file
 
-// define functions
+/* define functions  don't use any more
 char cardOne (char* name_card);
 // parse name card to try to get rid of char return
 char cardTwo (char* second_card);  // parse card #1
 char cardThree (char* third_card);  // parse card #2
+*/
 
-void inputFile (FILE* spInput)  // read from input file, this works (duh)
+/*  do in main now
+ void inputFile (FILE* spInput)  // read from input file, this works (duh)
 {
     fgets(name_card, LINE_LEN, spInput);  // get first line of TLE
     fgets(second_card, LINE_LEN, spInput);  // get first line of TLE, outside of the while
     fgets(third_card, LINE_LEN, spInput);  // outside of the while loop
     // how do these statements know to go to sequential lines?
 } // end of inputFile
+*/
 
-char cardOne (char* name_card)  // this reads name card!!
+/* take out reading three cards
+ char cardOne (char* name_card)  // this reads name card!!
 // scans to get name without CR - this darn version still has that CR
 {
     sscanf (name_card,"%12c", sat_name); // scan card #1, sat_name is a pointer
@@ -89,6 +117,7 @@ char cardThree (char* third_card)  // this reads third card!!
   
     return 0;  // passed parameters out??
 }
+*/
 
 void printParameters (FILE* spOutput)   // move all print statements here???
 {
@@ -98,19 +127,27 @@ void printParameters (FILE* spOutput)   // move all print statements here???
   //  printf("third card: %s \n", third_card);
     
      //let's try printing from inside the print function
-    fprintf(spOutput, "%s", name_card);
-    fprintf(spOutput, "%s", second_card);
-    fprintf(spOutput, "%s", third_card);
+  //  fprintf(spOutput, "%s", name_card);
+  //  fprintf(spOutput, "%s", second_card);
+ //   fprintf(spOutput, "%s", third_card);
     // end of print function
 }
 int main(void)
 {
+    string homeDir = getenv("Home"); // converting to dormer getenv
+    string ifname = homeDir + "/Desktop/common_files/input_tle.txt";
+    // still expects input_tle
+    string ofname = homeDir + "/Desktop/common_files/output_select.txt";
     
-    FILE* spInputTLE;  // a file of all the TLEs
-       
-    FILE* spOutput = nullptr; // output points to file to write calculate results to
+    ifstream fin(ifname);
+    ofstream fout(ofname);
+    
+    cout << "just after creating streams" << endl;
+    
+    // FILE* spInputTLE;  // a file of all the TLEs
+ //   FILE* spOutput = nullptr; // output points to file to write calculate results to
 
-    printf("Which Computer??\n");
+ /*   printf("Which Computer??\n");
         
         char answer = 'd';  // define answer and give it a default value of d
         // sort by what?
@@ -155,23 +192,30 @@ int main(void)
                 spOutput = fopen("/Users/mike/Dropbox/Projects/Charles/no_output.txt", "w");
                 break;
         }  // end of switch
+  
+  */
 
-    while (feof(spInputTLE) == 0)
+    while (!fin.eof())  // changed this
     {
+    //    getline(fin, line);  // get a line from fin
+// need to know which line we are scanning
+  //      string name_card = line.substr(10); // try to read name card
         
-        inputFile (spInputTLE);  // go to function inputFile and read lines
+        fout << "name" << name_card << endl;
+        
+   //     inputFile (spInputTLE);  // go to function inputFile and read lines
         
         //  printf("\ncards input, for test print three cards\n\n");
         
-        cardOne(name_card); // call function to scan name card
-        cardTwo (second_card);  // call function to read second card, card #1
-        cardThree (third_card);  // call function to read third card, card #2
-//
+     //   cardOne(name_card); // call function to scan name card
+    //    cardTwo (second_card);  // call function to read second card, card #1
+    //    cardThree (third_card);  // call function to read third card, card #2
+/*
         if (satno1 == 29249)
         {
             printParameters (spOutput);  //creates file with just 29249
         }
-   /*     else if (satno1 == 90115)
+        else if (satno1 == 90115)
         {
             printParameters (spOutput90115);  //creates file
         }
@@ -196,12 +240,8 @@ int main(void)
      */
     } // end while reading input file
     
- //  fclose(spOutput);  // close file we put output into
-    fclose(spInputTLE);  // close file we get input from
-    
-    fclose(spOutput);
+    fin.close();  // duh close fin
+    fout.close();
         
     return 0;
 }  // end main, sends to functions to read cards, parse parameters (duh)
-
-}
