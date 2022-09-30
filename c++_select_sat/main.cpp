@@ -1,4 +1,4 @@
-//  select sats 26 sep 2022
+//  select sats 29 sep 2022
 //  this is the C code compiled with C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
