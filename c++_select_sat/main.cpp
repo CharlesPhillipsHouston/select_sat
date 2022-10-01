@@ -1,5 +1,4 @@
 //  select sats 1 oct 2022
-//  this is C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and getline the individual lines
 // generally to just collect a file for a particular satellite though parameters are read
@@ -28,17 +27,10 @@ string name_card = "a";  // now using c++ strings
 string second_card = "b";
 string third_card = "c";
 
-/* take out c strings, put in c++
- define strings, each card starts as a string
-char name_card[80] = {0};  // imported first card of three, name (not needed)
-char second_card[80] = {0}; // imported second line, card 1
-char third_card[80] = {0}; // imported third line, card 2
-char LINE_LEN = 80;  // define line length as 80 char  is this a good definition? =80
-*/
-
 // cards all are strings
 
 // parameters start as strings and are converted later
+string cardno = "d";
 string satno1 = "d"; // this is satno from card 2
 string int_des = "e"; // will always be a string
 string epoch = "f"; // may convert to time
@@ -86,9 +78,6 @@ int main(void)
     
     ifstream fin(ifname);  // file in
    ofstream fout(ofname);  // file out
-    
-    fout << "just after creating streams" << endl;
-    cout << "just after creating streams" << endl;
  
     int i = 1;
     
@@ -99,17 +88,19 @@ int main(void)
         getline(fin, line);  // get a line from fin
 // need to know which line we are scanning
  // with next line, will not read name_card
-    string name_card = line.substr(0,10); // try to read name card
-      
+    string name_card = line.substr(0,80); // try to read name card
+        string cardno = line.substr(0);
+        
         getline(fin, line);  // get second card??
-        string second_card = line.substr(0,10);
+        string second_card = line.substr(0,80);
    // can only run with 0 in substr
   // without that line, still has default value!
         
-        cout << "name " << name_card << endl;
-        cout << "what is this? " << second_card << endl;
+ //       cout << "name " << name_card << endl;
+ //       cout << "what is this? " << second_card << endl;
         
-        fout << "name " << name_card << endl;
+        fout << "name " << name_card << "cardno " << cardno << endl;
+        fout << "second card? " << second_card << "cardno " << cardno << endl;
        i++;
     /*
         if (satno1 == 29249)
