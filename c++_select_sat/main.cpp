@@ -1,4 +1,4 @@
-//  select sats 30 sep 2022
+//  select sats 1 oct 2022
 //  this is C++
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and getline the individual lines
@@ -77,12 +77,12 @@ float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three
 
 int main(void)
 {
-  // string homeDir = getenv("Home"); // converting to dormer getenv
-    string ifname = "Users/charlesphillips/Desktop/common_files/input_tle.txt";
+  // string homeDir = getenv("HOME"); // converting to dormer getenv
+    string ifname = "/Users/charlesphillips/Desktop/common_files/input_tle.txt";
     
     // Users/charlesphillips/Desktop/common_files/input_tle.txt
     
-    string ofname = "Users/charlesphillips/Desktop/common_files/output_select.txt";
+    string ofname = "/Users/charlesphillips/Desktop/common_files/output_select.txt";
     
     ifstream fin(ifname);  // file in
    ofstream fout(ofname);  // file out
@@ -92,8 +92,8 @@ int main(void)
  
     int i = 1;
     
-  //  while (!fin.eof())  // this causes infinite loop
-    while (i < 9)  // changed this
+    while (!fin.eof())  // this causes infinite loop
+  //  while (i < 9)  // changed this
     
     {
         getline(fin, line);  // get a line from fin
