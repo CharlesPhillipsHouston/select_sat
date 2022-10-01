@@ -1,7 +1,7 @@
-//  select sats 29 sep 2022
-//  this is the C code compiled with C++
+//  select sats 30 sep 2022
+//  this is C++
 //  Copyright © 2019 charles phillips. All rights reserved.
-//  read in a TLE, all three lines, and fscanf the individual lines
+//  read in a TLE, all three lines, and getline the individual lines
 // generally to just collect a file for a particular satellite though parameters are read
 // runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
 
@@ -73,42 +73,44 @@ float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three
 // set variables as float - intermediate_one, _two, _three
 // they were defined as long integers!
  
-*/  void inputFile (FILE* input);   // read from file
+*/
 
 int main(void)
 {
   // string homeDir = getenv("Home"); // converting to dormer getenv
     string ifname = "Users/charlesphillips/Desktop/common_files/input_tle.txt";
-    // still expects input_tle
+    
     // Users/charlesphillips/Desktop/common_files/input_tle.txt
+    
     string ofname = "Users/charlesphillips/Desktop/common_files/output_select.txt";
     
-    ifstream fin(ifname);
-   ofstream fout(ofname);
+    ifstream fin(ifname);  // file in
+   ofstream fout(ofname);  // file out
     
     fout << "just after creating streams" << endl;
     cout << "just after creating streams" << endl;
  
     int i = 1;
     
+  //  while (!fin.eof())  // this causes infinite loop
     while (i < 9)  // changed this
+    
     {
         getline(fin, line);  // get a line from fin
 // need to know which line we are scanning
-  //  string name_card = line.substr(10); // try to read name card
+ // with next line, will not read name_card
+    string name_card = line.substr(0,10); // try to read name card
+  // without that line, still has default value a!
         
         cout << "name " << name_card << endl;
         fout << "name " << name_card << endl;
-        i++;
+       i++;
     /*
         if (satno1 == 29249)
         {
             printParameters (spOutput);  //creates file with just 29249
         }
-        else if (satno1 == 90115)
-        {
-            printParameters (spOutput90115);  //creates file
-        }
+    
         else if (satno1 == 90122)
         {
             printParameters(spOutput90122);
