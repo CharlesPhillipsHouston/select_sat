@@ -100,9 +100,15 @@ int main(void)
 // need to know which line we are scanning
  // with next line, will not read name_card
     string name_card = line.substr(0,10); // try to read name card
-  // without that line, still has default value a!
+      
+        getline(fin, line);  // get second card??
+        string second_card = line.substr(0,10);
+   // can only run with 0 in substr
+  // without that line, still has default value!
         
         cout << "name " << name_card << endl;
+        cout << "what is this? " << second_card << endl;
+        
         fout << "name " << name_card << endl;
        i++;
     /*
