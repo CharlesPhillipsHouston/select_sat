@@ -22,7 +22,7 @@ using namespace::std; // added c++ namespace
 #define PI        3.141592653589
 #define Two_Pi  6.283185307  // 2 times Pi (for use in finding semi-major axis)
 
-string line, *p;
+string line, *p;  // what is the *p??
 
 string name_card = "a";  // now using c++ strings
 string second_card = "b";
