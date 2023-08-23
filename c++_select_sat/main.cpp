@@ -50,9 +50,6 @@ float intermediate_three = 0.0; // intermediate two, cube root
 float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three squared
 // set variables as float - intermediate_one, _two, _three
 // they were defined as long integers!
-//void inputFile (FILE* input);   // read from file
-
-//void printParameters (FILE* output);  // print to display, file
 
 void inputFile (FILE* spInput)  // read 3 lines from input file
 {
