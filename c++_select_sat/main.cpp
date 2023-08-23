@@ -1,46 +1,32 @@
-//  select sats 1 oct 2022
+//  select sats
+//  as of 2 aug 2023
 //  Copyright © 2019 charles phillips. All rights reserved.
-//  read in a TLE, all three lines, and getline the individual lines
-// generally to just collect a file for a particular satellite though parameters are read
+//  read in a TLE, all three lines, and fscanf the individual lines
 // runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
+// this is a terminal application that asks for satellite numbers
+// this finds a list of satellites and puts them into their own files
 
 #include <iostream>
 #include <stdio.h>
-#include <string> // c++ strings
-#include <cstring>
-#include <fstream>
+#include <string.h> // strtok, strcpy stuff not even used yet
 #include <stdlib.h> // atoi, atof not used yet
 #include <math.h>  // math functions
+#include <string> // c++ string data type & operators
+#include <sstream>
+#include <vector>
 
-using namespace::std; // added c++ namespace
+using namespace std; // so I can just use cin / cout not std::cin / std::out
 
-// set up constants needed
-#define MU  398600.4418  // gravitational parameter
-#define min_per_day  1440  // minutes per day
-#define sec_per_day  86400   //seconds per day
-#define PI        3.141592653589
-#define Two_Pi  6.283185307  // 2 times Pi (for use in finding semi-major axis)
+// define strings, each card starts as a string1
 
-string line, *p;  // what is the *p??
+#define LINE_LEN 80
+char name_card[LINE_LEN] = {0};  // imported first card of three, name (not needed)
+char second_card[LINE_LEN] = {0}; // imported second line, card 1
+char third_card[LINE_LEN] = {0}; // imported third line, card 2
+// should use a #define for this in my opinion
+//char LINE_LEN = 80;  // define line length as 80 char  is this a good definition? =80
 
-string name_card = "a";  // now using c++ strings
-string second_card = "b";
-string third_card = "c";
-
-// cards all are strings
-
-// parameters start as strings and are converted later
-string cardno = "d";
-string satno1 = "d"; // this is satno from card 2
-string int_des = "e"; // will always be a string
-string epoch = "f"; // may convert to time
-string inclination = "f";
-string mean_anomaly = "h";
-string big_eccentricity = "i";
-
-
-/* define variables, no structure here!!
- used to have variables defined here, now call all of them strings and convert
+// define variables, no structure here!!
 int card1;
 int satno1;
 char sat_name[12] = "\0\0\0\0\0\0\0\0\0\0\0"; // name assigned, fill with \0
@@ -64,73 +50,147 @@ float intermediate_three = 0.0; // intermediate two, cube root
 float semi_major = 0.0; // semi-major axis cube root of: mu * intermediate three squared
 // set variables as float - intermediate_one, _two, _three
 // they were defined as long integers!
- 
-*/
+//void inputFile (FILE* input);   // read from file
 
+//void printParameters (FILE* output);  // print to display, file
+
+void inputFile (FILE* spInput)  // read 3 lines from input file
+{
+    fgets(name_card, sizeof(name_card), spInput);  // get first line of TLE
+    fgets(second_card, sizeof(second_card), spInput);  // get second line of TLE
+    fgets(third_card, sizeof(third_card), spInput);  // get third line of TLE
+} // end of inputFile
+
+char cardOne (char* name_card)  // this reads name card!!
+// scans to get name without CR - this darn version still has that CR
+{
+    sscanf (name_card,"%12c", sat_name); // scan card #1, sat_name is a pointer
+    //  printf("\n");  // blank line
+    return 0;
+}
+
+char cardTwo (char* second_card)
+// this reads second card!! no need to print this
+{
+    sscanf (second_card, "%d %6dU %6c %f", &card1, &satno1, &int_des, &epoch); // scan card #1
+    return 0;
+}
+
+char cardThree (char* third_card)  // this reads third card!!
+{
+    sscanf (third_card, "%s %6d  %f %f %f %f %f %f", &card2, &satno2, &inclination, &raan, &big_eccentricity, &arg_perigee, &mean_anomaly,
+            &mean_motion); // scan card #2
+  
+    return 0;  // passed parameters out??
+}
+
+void printParameters (FILE* spOutput)   // move all print statements here???
+{
+    fprintf(spOutput, "%s", name_card);
+    fprintf(spOutput, "%s", second_card);
+    fprintf(spOutput, "%s", third_card);
+    
+    // end of print function
+}
 int main(void)
 {
-  // string homeDir = getenv("HOME"); // converting to dormer getenv
-    string ifname = "/Users/charlesphillips/Desktop/common_files/input_tle.txt";
-    
-    // Users/charlesphillips/Desktop/common_files/input_tle.txt
-    
-    string ofname = "/Users/charlesphillips/Desktop/common_files/output_select.txt";
-    
-    ifstream fin(ifname);  // file in
-   ofstream fout(ofname);  // file out
- 
-    int i = 1;
-    
-    while (!fin.eof())  // this causes infinite loop
-  //  while (i < 9)  // changed this
-    
+    // let's look at some satellites with low perigees
+
+    cout << "Which Mac are you on:" << endl;
+    cout << "\t 1: Charles Mini" << endl;
+    cout << "\t 2: Charles MacBook" << endl;
+    cout << "\t 3: Mike" << endl;
+    cout << "\t 0: use current directory" << endl;
+    int comp = -1;
+    while(comp < 0 or comp > 3)
     {
-        getline(fin, line);  // get a line from fin
-// need to know which line we are scanning
- // with next line, will not read name_card
-    string name_card = line.substr(0,80); // try to read name card
-        string cardno = line.substr(0);
-        
-        getline(fin, line);  // get second card??
-        string second_card = line.substr(0,80);
-   // can only run with 0 in substr
-  // without that line, still has default value!
-        
- //       cout << "name " << name_card << endl;
- //       cout << "what is this? " << second_card << endl;
-        
-        fout << "name " << name_card << "cardno " << cardno << endl;
-        fout << "second card? " << second_card << "cardno " << cardno << endl;
-       i++;
+        while (!(cin >> comp) or comp > 3 or comp < 0) {
+            cin.clear();
+            cin.ignore();
+            cout << "Not a valid choice, try again: ";
+        }  // error check to make sure the user chose a valid computer
+    }
+// needed to clear input buffer??
+    cin.clear();
+    cin.ignore();
+
     /*
-        if (satno1 == 29249)
-        {
-            printParameters (spOutput);  //creates file with just 29249
-        }
-    
-        else if (satno1 == 90122)
-        {
-            printParameters(spOutput90122);
-        }
-        else if (satno1 == 90103)
-        {
-            printParameters (spOutput90103);  //creates file
-        }
-        else if (satno1 == 90097)
-        {
-            printParameters(spOutput90097);
-        }
-        else
-    
-        {
-            printParameters(stdout); //debug just print to terminal
-            printf("\n");  // if you output to screen add a CR
-        }
+     /Users/charlesphillips/Desktop/analyses/input_tles.txt
+     
      */
+    
+    string datapath;
+    switch (comp) {
+        case 1: //Charles Mini
+            datapath = "/Users/Charles/Desktop/analyses/highinclination/";
+            break;
+        case 2: //Charles MacBook
+            datapath = "/Users/charlesphillips/Desktop/analyses/";
+            break;
+        case 3: //Mike's computer
+            datapath = "/Users/mike/Dropbox/Projects/Charles/testdata/";
+            break;
+        default:
+            datapath = ""; //just use current directory
+    }
+    cout << "Datapath set to: " << datapath << endl;
+
+// Now get a list of satellite numbers to process
+    cout << "Enter list of satellites to process: " << endl;
+    std::string line;
+    std::getline(std::cin, line);
+    std::istringstream thisLine(line);
+    std::istream_iterator<int> begin(thisLine), end;
+    std::vector<int> satsToProcess(begin, end);
+
+//    cout << "Sats to process:";
+//    for (unsigned i = 0; i < satsToProcess.size(); i++){
+//        cout << ' ' << satsToProcess[i];
+//    }
+//    cout << endl;
+
+    // Open the input file
+    FILE* spInput = fopen ((datapath+"tles.txt").c_str(),"r");
+    
+    //Now open an output file for each satellite to process
+    //note: the file * will be NULL if file can't be opened
+    std::vector<FILE *> spOutputFiles;
+    std::string filename;
+    for (unsigned i = 0; i < satsToProcess.size(); i++)
+    {
+        filename = datapath + "spOutput" + std::to_string(satsToProcess[i]) + ".txt";
+        cout << "opening file: " + filename << endl;
+        spOutputFiles.push_back(fopen(filename.c_str(), "a"));
+        if(spOutputFiles[i] == NULL){
+            cout << "File " << filename << " could not be opened." << endl;
+        }
+    }
+
+    while (feof(spInput) == 0)
+    {
+        
+        inputFile (spInput);  // go to function inputFile and read lines
+        cardOne(name_card); // call function to scan name card
+        cardTwo (second_card);  // call function to read second card, card #1
+        cardThree (third_card);  // call function to read third card, card #2
+//
+        for (unsigned i = 0; i < satsToProcess.size(); i++)
+        {
+            if(satno1 == satsToProcess[i]){
+                if(spOutputFiles[i] != NULL){
+                    printParameters(spOutputFiles[i]);
+                }
+            }
+        }
     } // end while reading input file
     
-    fin.close();  // duh close fin
-    fout.close();
-        
+    fclose(spInput);  // close file we get input from
+    // close all the output files
+    for (unsigned i = 0; i < spOutputFiles.size(); i++)
+    {
+        fclose(spOutputFiles[i]);
+    }
+//    fclose(spOutput22519);
+    
     return 0;
-}  // end main, 
+}
