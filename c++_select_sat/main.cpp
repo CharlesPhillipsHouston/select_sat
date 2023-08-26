@@ -1,5 +1,5 @@
 //  select sats
-//  as of 2 aug 2023
+//  as of 24 aug 2023
 //  Copyright © 2019 charles phillips. All rights reserved.
 //  read in a TLE, all three lines, and fscanf the individual lines
 // runs on Mike's computer, on the MacBook Pro, and on the Mac Mini
@@ -23,8 +23,6 @@ using namespace std; // so I can just use cin / cout not std::cin / std::out
 char name_card[LINE_LEN] = {0};  // imported first card of three, name (not needed)
 char second_card[LINE_LEN] = {0}; // imported second line, card 1
 char third_card[LINE_LEN] = {0}; // imported third line, card 2
-// should use a #define for this in my opinion
-//char LINE_LEN = 80;  // define line length as 80 char  is this a good definition? =80
 
 // define variables, no structure here!!
 int card1;
@@ -98,7 +96,7 @@ int main(void)
     cout << "\t 2: Charles MacBook" << endl;
     cout << "\t 3: Mike" << endl;
     cout << "\t 0: use current directory" << endl;
-    int comp = -1;
+    int comp = -1;  // computer definition
     while(comp < 0 or comp > 3)
     {
         while (!(cin >> comp) or comp > 3 or comp < 0) {
